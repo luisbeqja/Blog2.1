@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "dev": "tinacms dev -c \"vite\"",
+    "build": "tinacms build && vue-tsc && vite build",
+    "preview": "tinacms build && vite preview"
   },
   "dependencies": {
     "@tinacms/cli": "^1.5.13",
