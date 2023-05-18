@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue';
 import { useQuery } from '@vue/apollo-composable';
 import { computed } from '@vue/reactivity';
 import gql from 'graphql-tag';
-import { watchEffect } from 'vue';
-
 const postQuery = gql`
   query post($relativePath: String!) {
     post(relativePath: $relativePath) {
@@ -27,30 +24,41 @@ const postQuery = gql`
     body
   }
 `;
-
+const postsList = gql`
+  {
+    postConnection {
+      edges {
+        node {
+          id
+          title
+        }
+      }
+    }
+  }
+`;
 const { result } = useQuery(postQuery, {
   relativePath: 'hello-world.md',
 });
-
-const data = computed(() => {
-  return result?.value?.post;
+const { result: resultPosts } = useQuery(postsList);
+const dataPost = computed(() => {
+  return result.value?.post?.body?.children;
+});
+const dataResultPosts = computed(() => {
+  return resultPosts.value?.postConnection?.edges;
 });
 
-watchEffect(() => {
-  console.log(data.value);
-});
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+
+  <div v-for="data in dataResultPosts">
+    <p>{{ data.node.title }}</p>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+
+  <div v-for="data in dataPost">
+    <p>{{ data.type }}</p>
+  </div>
+
 </template>
 
 <style scoped>
