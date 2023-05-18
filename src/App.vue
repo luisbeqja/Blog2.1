@@ -1,5 +1,44 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
+import { useQuery } from '@vue/apollo-composable';
+import { computed } from '@vue/reactivity';
+import gql from 'graphql-tag';
+import { watchEffect } from 'vue';
+
+const postQuery = gql`
+  query post($relativePath: String!) {
+    post(relativePath: $relativePath) {
+      ... on Document {
+        _sys {
+          filename
+          basename
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        id
+      }
+      ...PostParts
+    }
+  }
+  fragment PostParts on Post {
+    title
+    body
+  }
+`;
+
+const { result } = useQuery(postQuery, {
+  relativePath: 'hello-world.md',
+});
+
+const data = computed(() => {
+  return result?.value?.post;
+});
+
+watchEffect(() => {
+  console.log(data.value);
+});
 </script>
 
 <template>
