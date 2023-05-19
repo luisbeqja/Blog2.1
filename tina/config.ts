@@ -40,8 +40,8 @@ export default defineConfig({
           },
           {
             type: "string",
-            name: "info",
-            label: "Info",
+            name: "author",
+            label: "Author",
           },
           {
             type: "rich-text",

@@ -30,6 +30,8 @@ export const postsList = gql`
         node {
           id
           title
+          imgSrc
+          author
           _sys {
             filename
             basename

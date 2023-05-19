@@ -1,7 +1,7 @@
 <template>
   <div class="apl w-full flex flex-col items-center">
     <div class="apl--card w-full" v-for="data in dataResultPosts">
-      <p>{{ data.node.title }}</p>
+      <ArticleCard :title="data.node.title" :author="data.node.author ?? 'luis'" :imgSrc="data.node.imgSrc" />
     </div>
   </div>
 </template>
@@ -10,18 +10,18 @@
 import { postsList } from '../../graphql/api';
 import { useQuery } from '@vue/apollo-composable';
 import { computed } from '@vue/reactivity';
+import ArticleCard from './ArticleCard.vue';
 
 const { result: resultPosts } = useQuery(postsList);
 const dataResultPosts = computed(() => {
   return resultPosts.value?.postConnection?.edges;
 });
 
-console.log(dataResultPosts.value);
+console.log(dataResultPosts.value );
 </script>
 
 <style lang="scss" scoped>
 .apl {
-  background-color: red;
   &--card {
     background-color: #fff;
     border-radius: 0.5rem;
