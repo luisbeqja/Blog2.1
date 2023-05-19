@@ -1,5 +1,7 @@
 ---
-title: 'Hello, World!'
+title: 'Hello, World! 1 '
+imgSrc: /vite.svg
+info: Test Info
 ---
 
 ## Hello World!

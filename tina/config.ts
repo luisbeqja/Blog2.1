@@ -26,11 +26,22 @@ export default defineConfig({
         path: "content/posts",
         fields: [
           {
+            type: 'image',
+            label: 'Hero image',
+            name: 'imgSrc',
+            required: true,
+          },
+          {
             type: "string",
             name: "title",
             label: "Title",
             isTitle: true,
             required: true,
+          },
+          {
+            type: "string",
+            name: "info",
+            label: "Info",
           },
           {
             type: "rich-text",

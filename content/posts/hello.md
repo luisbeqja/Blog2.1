@@ -1,5 +1,6 @@
 ---
-title: 'Hello, World!'
+title: 'Hello, World!2 '
+imgSrc: /CS50x.png
 ---
 
 ## Hello World!
