@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import ArticlesList from './components/alp/ArticlesList.vue';
 import Header from './components/header/Header.vue';
 </script>
 
 <template>
   <Header />
-  <ArticlesList />
+  <router-view />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
