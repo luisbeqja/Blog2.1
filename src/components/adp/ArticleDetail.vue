@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <h1>Page</h1>
-    <p>{{ dataResultPosts.title }}</p>
-    <component v-for="item in dataResultPosts.body.children" :is="item.type">
-      {{ item.children[0].text }}
+  <div class="apd">
+    <h3 class="apd--date text-center">{{ dataResultPosts.date }}</h3>
+    <component
+      v-for="item in dataResultPosts?.body?.children"
+      :is="item.children[0].type === 'text' ? item.type : 'img'"
+      :src="item.children[0].url"
+      :class="[{ italic: item.children[0].italic }]"
+    >
+      {{ item?.children[0]?.text }}
     </component>
   </div>
 </template>
@@ -12,23 +16,44 @@
 import { postQuery } from '../../graphql/api';
 import { useQuery } from '@vue/apollo-composable';
 import { computed } from '@vue/reactivity';
+import { useRoute } from 'vue-router';
 
-const { result: resultPosts } = useQuery(
-  postQuery,
-  /* add variables */
-  { relativePath: 'hello-world.md' }
-);
+const route = useRoute();
+
+const relativePath = route.params.id || '';
 
 const dataResultPosts = computed(() => {
-  return resultPosts.value.post;
+  const { result: resultPosts } = useQuery(postQuery, {
+    relativePath: `${relativePath}.md`,
+  });
+  return resultPosts?.value?.post;
 });
 
 console.log(dataResultPosts);
 </script>
 
-<style scoped>
-h2 {
-  color: red;
-  font-size: 34px;
+<style scoped lang="scss">
+.apd {
+  max-width: 90rem;
+  margin: auto;
+  &--date {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  h2 {
+    color: rgb(0, 0, 0);
+    font-size: 5rem;
+    margin: 1rem 0;
+  }
+  p {
+    margin: 1rem;
+    font-size: 1.4rem;
+    text-align: left;
+    &.italic {
+      margin-bottom: 2rem;
+      text-align: center;
+      font-style: italic;
+    }
+  }
 }
 </style>

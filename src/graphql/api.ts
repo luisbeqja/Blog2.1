@@ -20,6 +20,7 @@ export const postQuery = gql`
   fragment PostParts on Post {
     title
     body
+    date
   }
 `;
 
@@ -32,6 +33,7 @@ export const postsList = gql`
           title
           imgSrc
           author
+          date
           _sys {
             filename
             basename

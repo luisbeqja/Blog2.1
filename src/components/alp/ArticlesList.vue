@@ -1,7 +1,7 @@
 <template>
   <div class="apl w-full flex flex-col items-center">
     <div class="apl--card w-full" v-for="data in dataResultPosts">
-      <ArticleCard :title="data.node.title" :author="data.node.author ?? 'luis'" :imgSrc="data.node.imgSrc" />
+      <ArticleCard :title="data.node.title" :author="data.node.author ?? 'luis'" :imgSrc="data.node.imgSrc" :url="data.node._sys.filename" />
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ const dataResultPosts = computed(() => {
   return resultPosts.value?.postConnection?.edges;
 });
 
-console.log(dataResultPosts.value );
+console.log(dataResultPosts);
 </script>
 
 <style lang="scss" scoped>

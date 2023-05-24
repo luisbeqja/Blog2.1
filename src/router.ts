@@ -9,7 +9,7 @@ import ArticleDerail from './components/adp/ArticleDetail.vue';
 // We'll talk about nested routes later.
 const routes = [
     { path: '/', component: ArticlesList, name: 'home' },
-    { path: '/post', component: ArticleDerail, name: 'post' },
+    { path: '/post/:id', component: ArticleDerail, name: 'post' },
 ]
 
 // 3. Create the router instance and pass the `routes` option
